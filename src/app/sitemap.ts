@@ -3,6 +3,8 @@ import { faceShapeOrder } from "@/lib/data/face-shape-data";
 
 const BASE_URL = "https://facecanvas.kr";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const faceShapePages = faceShapeOrder.map((shape) => ({
     url: `${BASE_URL}/result/${shape}`,
