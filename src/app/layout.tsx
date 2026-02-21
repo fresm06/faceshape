@@ -60,6 +60,13 @@ export default function RootLayout({
           rel="preconnect"
           href="https://cdn.jsdelivr.net"
         />
+        {/* Google AdSense */}
+        <meta name="google-adsense-account" content="ca-pub-3276198070637825" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3276198070637825"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="grain-overlay min-h-screen bg-canvas-bg">
         {/* Navigation */}
