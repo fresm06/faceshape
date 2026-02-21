@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts ─────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap");
+
+/* ── Pretendard via CDN ───────────────────────────────── */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+/* ── Base ─────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #fdfbf7;
+  color: #4f3b43;
+  font-family: "Pretendard", system-ui, sans-serif;
+}
+
+/* ── Typography ───────────────────────────────────────── */
+h1, h2, h3, .font-serif {
+  font-family: "Noto Serif KR", Georgia, serif;
+}
+
+/* ── Grain texture overlay ────────────────────────────── */
+.grain-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* ── Custom scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f0e6dd;
+}
+::-webkit-scrollbar-thumb {
+  background: #d3bba8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a77e70;
+}
+
+/* ── Selection color ──────────────────────────────────── */
+::selection {
+  background-color: #d3bba8;
+  color: #4f3b43;
+}
+
+/* ── Utility: opacity animation reset ────────────────── */
+.animate-fade-in,
+.animate-slide-up,
+.animate-slide-up-delay,
+.animate-slide-up-delay2 {
+  opacity: 0;
+}
+
+/* ── Face shape SVG paths ─────────────────────────────── */
+.face-shape-svg {
+  filter: drop-shadow(0 4px 16px rgba(79, 59, 67, 0.12));
+}
