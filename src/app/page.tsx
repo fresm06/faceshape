@@ -30,8 +30,8 @@ const faceShapes = [
     nameKr: "각진형",
     tagline: "강인하고 세련된 카리스마",
     color: "#9B8B7A",
-    // 각진형: 이마~턱 너비가 거의 같고 턱선이 각진 윤곽
-    head: "M20,14 Q20,6 50,6 Q80,6 80,14 L82,78 Q82,108 50,108 Q18,108 18,78 Z",
+    // 각진형: 이마 넓고 직선, 측면 직선, 턱 각도가 뚜렷한 각진 얼굴
+    head: "M18,14 Q50,6 82,14 L82,72 Q82,80 76,92 Q64,108 50,108 Q36,108 24,92 Q18,80 18,72 Z",
     earL: "M18,52 C13,52 11,58 11,65 C11,72 13,78 18,78",
     earR: "M82,52 C87,52 89,58 89,65 C89,72 87,78 82,78",
     eyeLX: 35, eyeRX: 65, eyeY: 46,
@@ -41,11 +41,11 @@ const faceShapes = [
     nameKr: "긴형",
     tagline: "우아하고 지적인 세련미",
     color: "#B8A090",
-    // 긴형: 폭이 좁고 높이가 긴 직사각형에 가까운 윤곽
-    head: "M50,4 C36,4 26,16 26,32 L26,86 C26,106 36,118 50,118 C64,118 74,106 74,86 L74,32 C74,16 64,4 50,4 Z",
-    earL: "M26,58 C21,58 19,64 19,70 C19,76 21,82 26,82",
-    earR: "M74,58 C79,58 81,64 81,70 C81,76 79,82 74,82",
-    eyeLX: 37, eyeRX: 63, eyeY: 50,
+    // 긴형: 적당히 길고 조금 넓어진 타원형 윤곽
+    head: "M50,12 C37,12 22,22 22,38 L22,82 C22,102 37,112 50,112 C63,112 78,102 78,82 L78,38 C78,22 63,12 50,12 Z",
+    earL: "M22,58 C17,58 15,64 15,70 C15,76 17,82 22,82",
+    earR: "M78,58 C83,58 85,64 85,70 C85,76 83,82 78,82",
+    eyeLX: 37, eyeRX: 63, eyeY: 52,
   },
   {
     id: "heart",
@@ -192,13 +192,7 @@ export default function HomePage() {
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
                 <svg viewBox="0 0 100 125" className="w-16 h-20 group-hover:scale-105 transition-transform duration-300">
-                  <path d={shape.earL} fill={shape.color} opacity="0.5" />
-                  <path d={shape.earR} fill={shape.color} opacity="0.5" />
                   <path d={shape.head} fill={shape.color} opacity="0.75" />
-                  <circle cx={shape.eyeLX} cy={shape.eyeY} r="3.5" fill="white" opacity="0.85" />
-                  <circle cx={shape.eyeRX} cy={shape.eyeY} r="3.5" fill="white" opacity="0.85" />
-                  <circle cx={shape.eyeLX} cy={shape.eyeY} r="1.8" fill={shape.color} opacity="0.9" />
-                  <circle cx={shape.eyeRX} cy={shape.eyeY} r="1.8" fill={shape.color} opacity="0.9" />
                 </svg>
                 <p className="font-sans text-canvas-text text-xs text-center">{shape.nameKr}</p>
               </Link>
@@ -231,19 +225,36 @@ export default function HomePage() {
             {[
               {
                 step: "01",
-                icon: "📸",
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-canvas-primary">
+                    <rect x="2" y="7" width="20" height="14" rx="2" />
+                    <circle cx="12" cy="14" r="3" />
+                    <path d="M9 7V5.5A1.5 1.5 0 0110.5 4h3A1.5 1.5 0 0115 5.5V7" />
+                  </svg>
+                ),
                 title: "사진 업로드",
                 desc: "정면 얼굴 사진을 업로드하거나 카메라로 직접 촬영하세요. 이미지는 브라우저를 벗어나지 않습니다.",
               },
               {
                 step: "02",
-                icon: "🔬",
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-canvas-primary">
+                    <circle cx="12" cy="10" r="6" />
+                    <path d="M9 10h.01M12 10h.01M15 10h.01" />
+                    <path d="M6 17l-2 4M18 17l2 4" />
+                    <path d="M9 16.5c0 1.5 1.343 2.5 3 2.5s3-1 3-2.5" />
+                  </svg>
+                ),
                 title: "AI 랜드마크 분석",
                 desc: "MediaPipe AI가 468개의 얼굴 랜드마크를 추출하여 광대폭, 이마, 턱선 등을 정밀 측정합니다.",
               },
               {
                 step: "03",
-                icon: "✨",
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-canvas-primary">
+                    <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6L12 2z" />
+                  </svg>
+                ),
                 title: "맞춤 스타일 추천",
                 desc: "분석된 얼굴형에 최적화된 헤어스타일 BEST 3와 어울리는 안경 프레임을 추천해드립니다.",
               },
@@ -255,7 +266,7 @@ export default function HomePage() {
                 <div className="absolute top-4 right-6 font-serif text-6xl text-canvas-accent/15 group-hover:text-canvas-accent/25 transition-colors duration-300">
                   {item.step}
                 </div>
-                <div className="text-4xl mb-5">{item.icon}</div>
+                <div className="mb-5">{item.icon}</div>
                 <h3 className="font-serif text-canvas-text text-xl mb-3">
                   {item.title}
                 </h3>
@@ -298,13 +309,7 @@ export default function HomePage() {
                     viewBox="0 0 100 125"
                     className="w-full h-full face-shape-svg group-hover:scale-105 transition-transform duration-300"
                   >
-                    <path d={shape.earL} fill={shape.color} opacity="0.5" />
-                    <path d={shape.earR} fill={shape.color} opacity="0.5" />
                     <path d={shape.head} fill={shape.color} opacity="0.7" />
-                    <circle cx={shape.eyeLX} cy={shape.eyeY} r="3.5" fill="white" opacity="0.85" />
-                    <circle cx={shape.eyeRX} cy={shape.eyeY} r="3.5" fill="white" opacity="0.85" />
-                    <circle cx={shape.eyeLX} cy={shape.eyeY} r="1.8" fill={shape.color} opacity="0.9" />
-                    <circle cx={shape.eyeRX} cy={shape.eyeY} r="1.8" fill={shape.color} opacity="0.9" />
                   </svg>
                 </div>
 
@@ -332,7 +337,13 @@ export default function HomePage() {
       {/* ─── Privacy guarantee ─────────────────────────── */}
       <section className="py-16 px-6 bg-canvas-text mx-6 rounded-3xl mb-16">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="text-4xl mb-5">🔒</div>
+          <div className="flex justify-center mb-5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 text-canvas-accent">
+              <rect x="5" y="11" width="14" height="10" rx="2" />
+              <path d="M8 11V7a4 4 0 018 0v4" />
+              <circle cx="12" cy="16" r="1" fill="currentColor" />
+            </svg>
+          </div>
           <h2 className="font-serif text-canvas-bg text-3xl mb-4">
             100% 프라이버시 보장
           </h2>

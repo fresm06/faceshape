@@ -29,15 +29,40 @@ export default function ScanPage() {
       <div className="max-w-xl mx-auto px-4 mb-8">
         <div className="grid grid-cols-3 gap-3 text-center">
           {[
-            { icon: "🌟", text: "밝은 곳에서 촬영" },
-            { icon: "👤", text: "정면 얼굴" },
-            { icon: "📐", text: "머리카락 걷어내기" },
+            {
+              icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-canvas-primary mx-auto">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                </svg>
+              ),
+              text: "밝은 곳에서 촬영",
+            },
+            {
+              icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-canvas-primary mx-auto">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M6 20c0-3.314 2.686-6 6-6s6 2.686 6 6" />
+                </svg>
+              ),
+              text: "정면 얼굴",
+            },
+            {
+              icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-canvas-primary mx-auto">
+                  <path d="M9 3c0 3-2 5-2 8h10c0-3-2-5-2-8" />
+                  <path d="M7 11v2a5 5 0 0010 0v-2" />
+                  <path d="M8 17v2M16 17v2" />
+                </svg>
+              ),
+              text: "머리카락 걷어내기",
+            },
           ].map((tip) => (
             <div
               key={tip.text}
               className="bg-canvas-surface rounded-2xl px-3 py-4"
             >
-              <div className="text-2xl mb-1.5">{tip.icon}</div>
+              <div className="mb-1.5">{tip.icon}</div>
               <p className="font-sans text-canvas-muted text-xs">{tip.text}</p>
             </div>
           ))}
