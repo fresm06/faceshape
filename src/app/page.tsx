@@ -1,58 +1,73 @@
 import Link from "next/link";
 import JsonLd from "@/components/common/JsonLd";
 
+// 각 얼굴형 SVG: 머리 윤곽 + 귀 + 눈 요소
 const faceShapes = [
   {
     id: "oval",
     nameKr: "계란형",
-    emoji: "🥚",
     tagline: "균형과 조화의 황금 비율",
-    svgPath: "M50,10 Q80,10 80,60 Q80,110 50,115 Q20,110 20,60 Q20,10 50,10 Z",
     color: "#C8A882",
+    // 계란형: 이마~광대 완만히 넓어졌다가 턱으로 자연스럽게 좁아짐
+    head: "M50,6 C30,6 15,20 15,48 C15,76 28,106 50,112 C72,106 85,76 85,48 C85,20 70,6 50,6 Z",
+    earL: "M15,50 C10,50 8,55 8,62 C8,69 10,74 15,74",
+    earR: "M85,50 C90,50 92,55 92,62 C92,69 90,74 85,74",
+    eyeLX: 35, eyeRX: 65, eyeY: 48,
   },
   {
     id: "round",
     nameKr: "둥근형",
-    emoji: "🌕",
     tagline: "사랑스럽고 생기 넘치는 매력",
-    svgPath: "M50,12 Q88,12 88,58 Q88,104 50,104 Q12,104 12,58 Q12,12 50,12 Z",
     color: "#E8B4A0",
+    // 둥근형: 폭과 높이 비율이 거의 같은 원형에 가까운 윤곽
+    head: "M50,8 C28,8 10,24 10,55 C10,86 26,108 50,108 C74,108 90,86 90,55 C90,24 72,8 50,8 Z",
+    earL: "M10,55 C5,55 3,61 3,68 C3,75 5,80 10,80",
+    earR: "M90,55 C95,55 97,61 97,68 C97,75 95,80 90,80",
+    eyeLX: 34, eyeRX: 66, eyeY: 55,
   },
   {
     id: "square",
     nameKr: "각진형",
-    emoji: "⬜",
     tagline: "강인하고 세련된 카리스마",
-    svgPath:
-      "M22,12 Q22,8 28,8 L72,8 Q78,8 78,12 L78,88 Q78,112 60,115 L50,118 L40,115 Q22,112 22,88 Z",
     color: "#9B8B7A",
+    // 각진형: 이마~턱 너비가 거의 같고 턱선이 각진 윤곽
+    head: "M20,14 Q20,6 50,6 Q80,6 80,14 L82,78 Q82,108 50,108 Q18,108 18,78 Z",
+    earL: "M18,52 C13,52 11,58 11,65 C11,72 13,78 18,78",
+    earR: "M82,52 C87,52 89,58 89,65 C89,72 87,78 82,78",
+    eyeLX: 35, eyeRX: 65, eyeY: 46,
   },
   {
     id: "oblong",
     nameKr: "긴형",
-    emoji: "🪞",
     tagline: "우아하고 지적인 세련미",
-    svgPath:
-      "M38,5 Q38,3 50,3 Q62,3 62,5 L62,100 Q62,118 50,120 Q38,118 38,100 Z",
     color: "#B8A090",
+    // 긴형: 폭이 좁고 높이가 긴 직사각형에 가까운 윤곽
+    head: "M50,4 C36,4 26,16 26,32 L26,86 C26,106 36,118 50,118 C64,118 74,106 74,86 L74,32 C74,16 64,4 50,4 Z",
+    earL: "M26,58 C21,58 19,64 19,70 C19,76 21,82 26,82",
+    earR: "M74,58 C79,58 81,64 81,70 C81,76 79,82 74,82",
+    eyeLX: 37, eyeRX: 63, eyeY: 50,
   },
   {
     id: "heart",
     nameKr: "하트형",
-    emoji: "💝",
     tagline: "사랑스럽고 요정 같은 입체미",
-    svgPath:
-      "M50,118 Q12,88 10,50 Q8,15 28,8 Q40,5 50,20 Q60,5 72,8 Q92,15 90,50 Q88,88 50,118 Z",
     color: "#D4A0A0",
+    // 하트형: 이마/광대가 넓고 아래로 갈수록 좁아져 뾰족한 턱으로 마무리
+    head: "M50,112 C38,96 14,76 10,52 C6,28 18,10 32,8 C40,6 46,10 50,22 C54,10 60,6 68,8 C82,10 94,28 90,52 C86,76 62,96 50,112 Z",
+    earL: "M10,52 C5,52 3,57 3,64 C3,71 5,76 10,76",
+    earR: "M90,52 C95,52 97,57 97,64 C97,71 95,76 90,76",
+    eyeLX: 33, eyeRX: 67, eyeY: 54,
   },
   {
     id: "diamond",
     nameKr: "다이아몬드형",
-    emoji: "💎",
     tagline: "날카롭고 신비로운 고급스러움",
-    svgPath:
-      "M50,8 Q63,10 78,48 Q86,65 78,82 Q64,112 50,118 Q36,112 22,82 Q14,65 22,48 Q37,10 50,8 Z",
     color: "#8B9CB0",
+    // 다이아몬드형: 광대가 가장 넓고 이마/턱이 좁은 마름모형 윤곽
+    head: "M50,6 C58,6 66,14 74,32 C84,52 84,70 76,90 C68,108 60,116 50,116 C40,116 32,108 24,90 C16,70 16,52 26,32 C34,14 42,6 50,6 Z",
+    earL: "M16,60 C11,60 9,66 9,72 C9,78 11,84 16,84",
+    earR: "M84,60 C89,60 91,66 91,72 C91,78 89,84 84,84",
+    eyeLX: 36, eyeRX: 64, eyeY: 54,
   },
 ];
 
@@ -93,7 +108,7 @@ export default function HomePage() {
               }}
             >
               <svg viewBox="0 0 100 125" className="w-full h-full">
-                <path d={shape.svgPath} fill={shape.color} />
+                <path d={shape.head} fill={shape.color} />
               </svg>
             </div>
           ))}
@@ -167,44 +182,27 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right: Face shape showcase */}
-          <div className="hidden lg:flex justify-center items-center relative">
-            <div className="relative w-80 h-96">
-              {/* Central featured shape */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <svg viewBox="0 0 100 125" className="w-48 h-56 face-shape-svg animate-float">
-                  <defs>
-                    <linearGradient id="ovalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#D3BBA8" />
-                      <stop offset="100%" stopColor="#A77E70" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M50,10 Q80,10 80,60 Q80,110 50,115 Q20,110 20,60 Q20,10 50,10 Z" fill="url(#ovalGrad)" opacity="0.7"/>
+          {/* Right: Face shape showcase grid */}
+          <div className="hidden lg:grid grid-cols-3 gap-4 items-start">
+            {faceShapes.map((shape, i) => (
+              <Link
+                key={shape.id}
+                href={`/result/${shape.id}`}
+                className="group flex flex-col items-center gap-2 bg-canvas-surface/60 rounded-2xl p-4 hover:bg-canvas-surface hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
+                <svg viewBox="0 0 100 125" className="w-16 h-20 group-hover:scale-105 transition-transform duration-300">
+                  <path d={shape.earL} fill={shape.color} opacity="0.5" />
+                  <path d={shape.earR} fill={shape.color} opacity="0.5" />
+                  <path d={shape.head} fill={shape.color} opacity="0.75" />
+                  <circle cx={shape.eyeLX} cy={shape.eyeY} r="3.5" fill="white" opacity="0.85" />
+                  <circle cx={shape.eyeRX} cy={shape.eyeY} r="3.5" fill="white" opacity="0.85" />
+                  <circle cx={shape.eyeLX} cy={shape.eyeY} r="1.8" fill={shape.color} opacity="0.9" />
+                  <circle cx={shape.eyeRX} cy={shape.eyeY} r="1.8" fill={shape.color} opacity="0.9" />
                 </svg>
-              </div>
-
-              {/* Orbiting shape pills */}
-              {faceShapes.slice(0, 5).map((shape, i) => {
-                const angle = (i / 5) * 2 * Math.PI - Math.PI / 2;
-                const r = 155;
-                const x = 50 + r * Math.cos(angle);
-                const y = 50 + r * Math.sin(angle);
-                return (
-                  <Link
-                    key={shape.id}
-                    href={`/result/${shape.id}`}
-                    className="absolute transform -translate-x-1/2 -translate-y-1/2 bg-canvas-bg/90 backdrop-blur-sm border border-canvas-accent/30 px-3 py-2 rounded-full font-sans text-xs text-canvas-muted hover:text-canvas-primary hover:border-canvas-primary transition-all duration-200 whitespace-nowrap shadow-sm"
-                    style={{
-                      left: `${x}%`,
-                      top: `${y}%`,
-                      animationDelay: `${i * 0.3}s`,
-                    }}
-                  >
-                    {shape.emoji} {shape.nameKr}
-                  </Link>
-                );
-              })}
-            </div>
+                <p className="font-sans text-canvas-text text-xs text-center">{shape.nameKr}</p>
+              </Link>
+            ))}
           </div>
         </div>
 
@@ -300,11 +298,13 @@ export default function HomePage() {
                     viewBox="0 0 100 125"
                     className="w-full h-full face-shape-svg group-hover:scale-105 transition-transform duration-300"
                   >
-                    <path
-                      d={shape.svgPath}
-                      fill={shape.color}
-                      opacity="0.7"
-                    />
+                    <path d={shape.earL} fill={shape.color} opacity="0.5" />
+                    <path d={shape.earR} fill={shape.color} opacity="0.5" />
+                    <path d={shape.head} fill={shape.color} opacity="0.7" />
+                    <circle cx={shape.eyeLX} cy={shape.eyeY} r="3.5" fill="white" opacity="0.85" />
+                    <circle cx={shape.eyeRX} cy={shape.eyeY} r="3.5" fill="white" opacity="0.85" />
+                    <circle cx={shape.eyeLX} cy={shape.eyeY} r="1.8" fill={shape.color} opacity="0.9" />
+                    <circle cx={shape.eyeRX} cy={shape.eyeY} r="1.8" fill={shape.color} opacity="0.9" />
                   </svg>
                 </div>
 
