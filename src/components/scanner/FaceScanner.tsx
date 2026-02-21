@@ -128,7 +128,11 @@ export default function FaceScanner() {
       }
 
       const landmarks = result.faceLandmarks[0];
-      const measurements = extractMeasurements(landmarks);
+      const measurements = extractMeasurements(
+        landmarks,
+        img.naturalWidth,
+        img.naturalHeight,
+      );
 
       if (!measurements) {
         throw new Error("얼굴 측정에 실패했습니다.");
