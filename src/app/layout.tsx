@@ -125,6 +125,26 @@ export default function RootLayout({
                     ))}
                   </div>
                 </div>
+                <div>
+                  <p className="font-sans text-canvas-text text-sm font-medium mb-3">
+                    서비스 정보
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    {[
+                      ["서비스 소개", "/about"],
+                      ["개인정보처리방침", "/privacy"],
+                      ["이용약관", "/terms"],
+                    ].map(([name, href]) => (
+                      <a
+                        key={href}
+                        href={href}
+                        className="font-sans text-canvas-muted text-sm hover:text-canvas-primary transition-colors"
+                      >
+                        {name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
             <div className="mt-8 pt-6 border-t border-canvas-accent/20">
